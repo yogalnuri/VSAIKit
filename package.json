@@ -1,0 +1,108 @@
+{
+  "name": "ai-vscode-extension",
+  "displayName": "AI Extension for VS Code",
+  "description": "Professional VS Code extension with Genkit AI integration and Clean Architecture",
+  "version": "0.1.0",
+  "publisher": "your-publisher",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "AI",
+    "Machine Learning",
+    "Utilities"
+  ],
+  "keywords": [
+    "ai",
+    "genkit",
+    "typescript",
+    "clean-architecture",
+    "extension"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/ai-vscode-extension"
+  },
+  "homepage": "https://github.com/yourusername/ai-vscode-extension#readme",
+  "bugs": {
+    "url": "https://github.com/yourusername/ai-vscode-extension/issues"
+  },
+  "contributes": {
+    "commands": [
+      {
+        "command": "ai-extension.helloWorld",
+        "title": "AI Extension: Hello World"
+      },
+      {
+        "command": "ai-extension.openSidebar",
+        "title": "AI Extension: Open Sidebar"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "ai-sidebar",
+          "title": "AI Assistant",
+          "icon": "media/ai-icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "ai-sidebar": [
+        {
+          "id": "ai-assistant-view",
+          "name": "AI Assistant",
+          "type": "webview"
+        }
+      ]
+    }
+  },
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./dist/extension.js",
+  "type": "module",
+  "scripts": {
+    "vscode:prepublish": "npm run esbuild:prod",
+    "esbuild:watch": "esbuild ./src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --external:fsevents --format=cjs --platform=node --loader:.node=file --watch",
+    "esbuild:prod": "esbuild ./src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --external:fsevents --format=cjs --platform=node --loader:.node=file --minify",
+    "esbuild:dev": "esbuild ./src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --external:fsevents --format=cjs --platform=node --loader:.node=file --sourcemap",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "lint": "eslint src --ext ts --max-warnings 20",
+    "lint:fix": "eslint src --ext ts --fix",
+    "format": "prettier --write \\\"src/**/*.ts\\\"",
+    "format:check": "prettier --check \\\"src/**/*.ts\\\"",
+    "pretest": "npm run compile && npm run lint",
+    "test": "node ./dist/test/runTest.js",
+    "test:unit": "node ./dist/test/runTest.js -- --testNamePattern=unit",
+    "test:integration": "node ./dist/test/runTest.js -- --testNamePattern=integration",
+    "clean": "rm -rf dist node_modules *.vsix",
+    "package": "vsce package --out ai-vscode-extension.vsix",
+    "publish": "vsce publish",
+    "package:dev": "vsce package --out ai-vscode-extension-dev.vsix --pre-release"
+  },
+  "devDependencies": {
+    "@types/glob": "^8.1.0",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^20.10.0",
+    "@types/vscode": "^1.85.0",
+    "@typescript-eslint/eslint-plugin": "^6.13.0",
+    "@typescript-eslint/parser": "^6.13.0",
+    "@vscode/test-electron": "^2.3.8",
+    "esbuild": "^0.19.11",
+    "eslint": "^8.55.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.0.1",
+    "mocha": "^12.0.3",
+    "prettier": "^3.1.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "@vscode/webview-ui-toolkit": "^1.2.2",
+    "vscode-nls": "^5.2.0",
+    "vscode-uri": "^3.0.8"
+  }
+}
